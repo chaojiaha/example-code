@@ -25,7 +25,8 @@ template = template.replace('{links}', LINKS_HTML)
 
 # BEGIN HTTP_CHARFINDER_HOME
 def home(request):  # <1>
-    query = request.GET.get('query', '').strip()  # <2>
+#     query = request.GET.get('query', '').strip()  # <2>
+    query = request.query.get("query", '').strip()
     print('Query: {!r}'.format(query))  # <3>
     if query:  # <4>
         descriptions = list(index.find_descriptions(query))
@@ -40,7 +41,8 @@ def home(request):  # <1>
     html = template.format(query=query, result=res,  # <5>
                            message=msg)
     print('Sending {} results'.format(len(descriptions)))  # <6>
-    return web.Response(content_type=CONTENT_TYPE, text=html) # <7>
+#     return web.Response(content_type=CONTENT_TYPE, text=html) # <7>
+    return web.Response(content_type="text/html", charset="UTF-8", text=html)
 # END HTTP_CHARFINDER_HOME
 
 
